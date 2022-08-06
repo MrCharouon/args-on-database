@@ -7,32 +7,25 @@ cur.execute("""CREATE TABLE IF NOT EXISTS invests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_invests Text );""")
 conn.commit()
+
 def INSERT_DATA(new_invest, db_ids):
     if len(list_id) == 0:
         number_id = 1
     else:
         number_id = int(list_id[-1])+1
-    result = tttt()
-    r = result.bbb()
-    print(r)
     query = f'INSERT INTO invests VALUES ("{number_id}", "{new_invest}")'
     cur.execute(query)
     conn.commit()
-    conn.close()
+    # conn.close()
+
+
 def DELETE_DATA(delete_invest):
     query = f'DELETE FROM invests WHERE user_invests = "{delete_invest}"'
     cur.execute(query)
     conn.commit()
-    conn.close()
+    # conn.close()
 
-class tttt():
 
-    def aaa(slef):
-        a = "ali"
-        return (a)  
-    def bbb(slef):
-        b = "mehdi"
-        return (b)     
 
 list_invests = []
 list_id = []
@@ -41,12 +34,20 @@ cursor = conn.cursor()
 cursor.execute(sql_select_Query)
 records = cursor.fetchall()
 for row in records:
-    # print("id = ", row[0], )
-    # print("user_invests = ", row[1])
     list_id.append(row[0])
     list_invests.append(row[1])
-    # print("--------------------------------------------")
-# print(list_invests)
+
+class update_db():
+    def update(slef):
+        update_invest = []
+        sql_select_Query = "select * from invests"
+        cursor = conn.cursor()
+        cursor.execute(sql_select_Query)
+        records = cursor.fetchall()
+        for row in records:
+            update_invest.append(row[1])
+        conn.close()
+        return (update_invest)
 
 parser = argparse.ArgumentParser(description="The following is a help document")
 parser.add_argument('--add', action='store', dest='invest', help='add a new invest')
@@ -56,13 +57,24 @@ args = parser.parse_args()
 invest = (args.invest)
 remove = (args.remove)
 if (invest != None):
-    print('The investment has been successfully added to the database : ' + invest )
-    print('your investments are : ' + str(list_invests))
     INSERT_DATA(invest, list_id)
+    result = update_db()
+    r = result.update()
+    print('The investment has been successfully added to the database : ' + invest + "\n" )
+    print('your investments are : ' + str(r))
     exit(0)
 elif(remove != None):
-    print('The investment has been successfully removed to the database : ' + remove )
-    print('your investments are : ' + str(list_invests))
     DELETE_DATA(remove)
+    result = update_db()
+    r = result.update()
+    print('The investment has been successfully added to the database : ' + remove + "\n" )
+    print('your investments are : ' + str(r))
     exit(0)
-print('Hello World!')
+
+
+
+
+
+result = update_db()
+r = result.update()
+print('your investments are : ' + str(r))
