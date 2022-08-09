@@ -1,31 +1,12 @@
 import argparse
 import sqlite3
-# def Create_Database():
+
 conn = sqlite3.connect('data.db')
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS invests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_invests Text );""")
 conn.commit()
-
-def INSERT_DATA(new_invest, db_ids):
-    if len(list_id) == 0:
-        number_id = 1
-    else:
-        number_id = int(list_id[-1])+1
-    query = f'INSERT INTO invests VALUES ("{number_id}", "{new_invest}")'
-    cur.execute(query)
-    conn.commit()
-    # conn.close()
-
-
-def DELETE_DATA(delete_invest):
-    query = f'DELETE FROM invests WHERE user_invests = "{delete_invest}"'
-    cur.execute(query)
-    conn.commit()
-    # conn.close()
-
-
 
 list_invests = []
 list_id = []
@@ -36,6 +17,20 @@ records = cursor.fetchall()
 for row in records:
     list_id.append(row[0])
     list_invests.append(row[1])
+
+def INSERT_DATA(new_invest, db_ids):
+    if len(list_id) == 0:
+        number_id = 1
+    else:
+        number_id = int(list_id[-1])+1
+    query = f'INSERT INTO invests VALUES ("{number_id}", "{new_invest}")'
+    cur.execute(query)
+    conn.commit()
+
+def DELETE_DATA(delete_invest):
+    query = f'DELETE FROM invests WHERE user_invests = "{delete_invest}"'
+    cur.execute(query)
+    conn.commit()
 
 class update_db():
     def update(slef):
@@ -72,9 +67,9 @@ elif(remove != None):
     exit(0)
 
 
-
-
-
 result = update_db()
 r = result.update()
-print('your investments are : ' + str(r))
+if (len(r) == 0):
+    print ("هنوز سهمی اضافه نکرده اید"+ "\n" +  "برای راهنمایی دستور زیر را اجرا کنید" + "\n" + "main.py -h")
+else:
+    print('your investments are : ' + str(r))
