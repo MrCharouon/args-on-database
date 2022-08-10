@@ -45,17 +45,24 @@ class update_db():
         return (update_invest)
 
 parser = argparse.ArgumentParser(description="The following is a help document")
-parser.add_argument('--add', action='store', dest='invest', help='add a new invest')
-parser.add_argument('--remove', action='store', dest='remove', help='remove a invest from list')
+parser.add_argument('-a','--add', action='store', dest='invest', help='add a new invest to datebase')
+parser.add_argument('-r','--remove', action='store', dest='remove', help='remove a invest from your watchlist')
+
 
 args = parser.parse_args()
 invest = (args.invest)
 remove = (args.remove)
 if (invest != None):
-    INSERT_DATA(invest, list_id)
+    def check(w, list):
+        if w in list:
+            print("The investment is in the database!")
+        else:
+            INSERT_DATA(invest, list_id)
+            print('The investment has been successfully added to the database : ' + invest + "\n" )
+
+    check(invest,list_invests)
     result = update_db()
     r = result.update()
-    print('The investment has been successfully added to the database : ' + invest + "\n" )
     print('your investments are : ' + str(r))
     exit(0)
 elif(remove != None):
@@ -70,6 +77,6 @@ elif(remove != None):
 result = update_db()
 r = result.update()
 if (len(r) == 0):
-    print ("هنوز سهمی اضافه نکرده اید"+ "\n" +  "برای راهنمایی دستور زیر را اجرا کنید" + "\n" + "main.py -h")
+    print ("هنوز سهمی اضافه نکرده اید"+ "\n" +  "برای دیدن دستورات بیشتر اجرا کنید : main.py --help"  + "\n" )
 else:
     print('your investments are : ' + str(r))
