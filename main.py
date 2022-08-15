@@ -66,13 +66,18 @@ if (invest != None):
     print('your investments are : ' + str(r))
     exit(0)
 elif(remove != None):
-    DELETE_DATA(remove)
-    result = update_db()
-    r = result.update()
-    print('The investment has been successfully added to the database : ' + remove + "\n" )
-    print('your investments are : ' + str(r))
-    exit(0)
+    def check(w, list):
+        if w in list:
+            DELETE_DATA(remove)
+            result = update_db()
+            r = result.update()
+            print('The investment has been successfully remove on database : ' + remove + "\n" )
+            print('your investments are : ' + str(r))
+            exit(0)
+        else:
+            print ("Investments of this kind do not exist!")
 
+    check(remove,list_invests)
 
 result = update_db()
 r = result.update()
