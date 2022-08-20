@@ -45,13 +45,14 @@ class update_db():
         return (update_invest)
 
 parser = argparse.ArgumentParser(description="The following is a help document")
-parser.add_argument('-a','--add', action='store', dest='invest', help='add a new invest to datebase')
-parser.add_argument('-r','--remove', action='store', dest='remove', help='remove a invest from your watchlist')
+parser.add_argument('--add', action='store', dest='a_invest', help='add a new invest to datebase')
+parser.add_argument('--remove', action='store', dest='r_invest', help='remove a invest from your watchlist')
+
 
 
 args = parser.parse_args()
-invest = (args.invest)
-remove = (args.remove)
+invest = (args.a_invest)
+remove = (args.r_invest)
 if (invest != None):
     def check(w, list):
         if w in list:
