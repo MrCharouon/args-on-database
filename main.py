@@ -74,12 +74,12 @@ elif(remove != None):
             r = result.update()
             print('The investment has been successfully remove on database : ' + remove + "\n" )
             print('your investments are : ' + str(r))
-            exit(0)
+            
         else:
             print ("Investments of this kind do not exist!")
 
     check(remove,list_invests)
-
+    exit(0)
 result = update_db()
 r = result.update()
 if (len(r) == 0):
