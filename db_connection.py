@@ -1,6 +1,7 @@
 import sqlite3
+from directory import *
 
-conn = sqlite3.connect('data.db')
+conn = sqlite3.connect(path+ 'data.db')
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS invests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
