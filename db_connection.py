@@ -7,22 +7,22 @@ cur.execute("""CREATE TABLE IF NOT EXISTS invests (
     user_invests Text );""")
 conn.commit()
 
-list_invests = []
-list_id = []
+stock_keys_list = []
+id_keys_list = []
 sql_select_Query = "select * from invests"
 cursor = conn.cursor()
 cursor.execute(sql_select_Query)
 records = cursor.fetchall()
 for row in records:
-    list_id.append(row[0])
-    list_invests.append(row[1])
+    id_keys_list.append(row[0])
+    stock_keys_list.append(row[1])
 
-def INSERT_DATA(new_invest, db_ids):
-    if len(list_id) == 0:
-        number_id = 1
+def INSERT_DATA(final_number_id, new_invest):
+    if len(id_keys_list) == 0:
+        final_number_id = 1
     else:
-        number_id = int(list_id[-1])+1
-    query = f'INSERT INTO invests VALUES ("{number_id}", "{new_invest}")'
+        final_number_id = int(id_keys_list[-1])+1
+    query = f'INSERT INTO invests VALUES ("{final_number_id}", "{new_invest}")'
     cur.execute(query)
     conn.commit()
 

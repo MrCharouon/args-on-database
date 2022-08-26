@@ -9,38 +9,38 @@ parser.add_argument('--add', action='store', dest='a_invest', help='add a new in
 parser.add_argument('--remove', action='store', dest='r_invest', help='remove a invest from your watchlist')
 
 args = parser.parse_args()
-invest = (args.a_invest)
-remove = (args.r_invest)
-if(invest != None):
+stock_input_add = (args.a_invest)
+stock_input_remove = (args.r_invest)
+if(stock_input_add != None):
     def check(w, list):
         if w in list:
-            print("The investment is in the database!")
+            print("\n"+ "این سهم رو قبلا اضافه کردی")
         else:
-            INSERT_DATA(invest, list_id)
-            print('The investment has been successfully added to the database : ' + invest + "\n" )
+            INSERT_DATA(id_keys_list, stock_input_add)
+            print("\n"+ 'سهم با موفقیت به پایگاه داده اضافه شد : ' + stock_input_add )
 
-    check(invest,list_invests)
+    check(stock_input_add,stock_keys_list)
     result = update_db()
     r = result.update()
-    print('your investments are : ' + str(r))
+    print("\n"+ 'your investments are : ' + str(r)+ "\n")
     exit(0)
-elif(remove != None):
+elif(stock_input_remove != None):
     def check(w, list):
         if w in list:
-            DELETE_DATA(remove)
-            result = update_db()
-            r = result.update()
-            print('The investment has been successfully remove on database : ' + remove + "\n" )
-            print('your investments are : ' + str(r))
+            DELETE_DATA(stock_input_remove)
+            print("\n"+ 'سهم با موفقیت از پایگاه داده حذف شد : ' + stock_input_remove)
             
         else:
-            print ("Investments of this kind do not exist!")
+            print ("\n"+ "چنین سهمی وجود ندارد")
 
-    check(remove,list_invests)
+    check(stock_input_remove,stock_keys_list)
+    result = update_db()
+    r = result.update()
+    print("\n"+ 'your investments are : ' + str(r)+ "\n")
     exit(0)
 result = update_db()
 r = result.update()
 if (len(r) == 0):
-    print ("هنوز سهمی اضافه نکرده اید"+ "\n" +  "برای دیدن دستورات بیشتر اجرا کنید : main.py --help"  + "\n" )
+    print ("\n"+ "هنوز سهمی اضافه نکرده اید"+ "\n"+ "برای دیدن دستورات بیشتر اجرا کنید"+ "\n"+ "main.py --help"+ "\n")
 else:
-    print('your investments are : ' + str(r))
+    print("\n"+ 'your investments are : ' + str(r)+ "\n")
